@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Todoapp from './Todoapp';
+import Addobj from './Addobj';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  state = {
+    list: [
+
+    ]
+  }
+  delfun = (id) => {
+    let list = this.state.list.filter(items => {
+      return items.id !== id;
+    })
+    this.setState({
+      list
+    })
+  }
+  addfun = (sample) => {
+    sample.id = Math.random();
+    let list = [...this.state.list, sample];
+    this.setState({
+      list: list
+    })
+  }
+  render() {
+    return (
+      <div className="App" >
+        <h1>TODO</h1>
+        <Todoapp todo={this.state.list} delfun={this.delfun} />
+        <Addobj addfun={this.addfun} />
+      </div>
+    );
+  }
 }
-
 export default App;
